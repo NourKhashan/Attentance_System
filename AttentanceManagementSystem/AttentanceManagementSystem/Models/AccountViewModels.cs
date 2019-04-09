@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace AttentanceManagementSystem.Models
@@ -49,9 +50,7 @@ namespace AttentanceManagementSystem.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -65,20 +64,38 @@ namespace AttentanceManagementSystem.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "First Name")]
+        [MaxLength(6, ErrorMessage ="FName Max Length is 9")]
+        [MinLength(3, ErrorMessage = "FName Min Length is 3")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        [MaxLength(6, ErrorMessage = "LName Max Length is 6")]
+        [MinLength(3, ErrorMessage = "LName Min Length is 3")]
+        public string LastName { get; set; }
+        public string FullName {
+            get {
+                return FirstName + " " + LastName;
+            }
+        }
+
+
+        [Required]
+        [Display(Name = "Address")]
+
+        public string Address { get; set; }
+
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}"), DataType(DataType.DateTime)]
+        public DateTime? BirthDay { get; set; }
+        public byte[] Image { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
     }
 
     public class ResetPasswordViewModel

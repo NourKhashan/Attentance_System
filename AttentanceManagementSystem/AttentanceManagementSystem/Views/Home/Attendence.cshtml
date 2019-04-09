@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNet.Identity;
+@{
+    ViewBag.Title = "Attendence";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Assign= "false";
+
+
+}
+
+<h2>Attendence</h2>
+
+@Html.ActionLink("Attednce", "Attendence",new { }, new { @class="btn btn-primary"})
+
+            
+@if (ViewBag.Assign== "true") {
+    <h2>Hi @User.Identity.GetUserName() , U Register At @ViewBag.time </h2>
+
+}
