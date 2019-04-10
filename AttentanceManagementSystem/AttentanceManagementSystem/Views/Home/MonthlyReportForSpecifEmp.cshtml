@@ -1,0 +1,83 @@
+﻿@model IEnumerable<AttentanceManagementSystem.Models.AttendenceModelView>
+@{
+    ViewBag.Title = "MonthlyReportForSpecifEmp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string[] month = new string[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+    SelectList monthsList = new SelectList(month, 12);
+}
+
+<h2>Monthly Report For All Employees</h2>
+<div>
+    @Html.Label("Months")
+    @Html.DropDownList("Months", monthsList, "Select Month", new { id = "ddlMonths" })
+</div>
+
+<div id="div">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Attendence)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Absence)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Late)
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Attendence)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Absence)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Late)
+                </td>
+
+
+            </tr>
+        }
+
+    </table>
+</div>
+
+@section scripts{
+    <script>
+        $("#ddlMonths").on("change", (value) => {
+            console.log(value.target.selectedIndex);
+            $.ajax({
+                url: "/home/MonthlyReportForSpecifEmpByMonth/" + value.target.selectedIndex,
+                type: "Post",
+                success: function (data) {
+                    console.log("done", data);
+                    var result = "<table  class='table'><th>UserId</th><th>Attendence</th><th>Absence</th><th>Late</th>";
+                    $.each(data, function (index, value) {
+                        result += "<tr><td>" + value.UserId + "</td><td>" + value.Attendence
+                            + "</td><td>" + value.Absence + "</td><td>" + value.Late;
+
+
+
+                    });
+                    result += "</table>";
+                    $("#div").html(result);
+                }
+            })// Ajax
+
+                });
+    </script>
+
+}

@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNet.Identity;
+@{
+    ViewBag.Title = "MonthlyReportForOneEmp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string[] month = new string[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+    SelectList monthsList = new SelectList(month, 12);
+}
+<h2>My Reports</h2>
+
+<div>
+    @Html.Label("Months")
+    @Html.DropDownList("Months", monthsList, "Select Month", new { id="ddlMonths"})
+</div>
+<div id="divReports">
+    <ul>
+        <li>Attendence: @ViewBag.attendence</li>
+        <li> Late: @ViewBag.late</li>
+        <li>Absence: @ViewBag.absence</li>
+    </ul>
+    
+</div>
+
+@section scripts{
+    <script>
+        $("#ddlMonths").on("change", (value) => {
+            console.log(value.target.selectedIndex);
+            $.ajax({
+                url: "/home/MonthlyReportForOneEmp/" + value.target.selectedIndex,
+                type: "Post",
+                success: function (data) {
+                    console.log("done", data);
+                    $("#divReports").html(
+                        `<ul>
+                            <li>Attendence: ${data[0]}</li>
+                            <li> Late: ${data[1]}</li>
+                            <li>Absence: ${data[2]}</li>
+                        </ul>`
+                    )
+                   
+                }
+
+            });//Ajax
+        });
+    </script>
+    
+}

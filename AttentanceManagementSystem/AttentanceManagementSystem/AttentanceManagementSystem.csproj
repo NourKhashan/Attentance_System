@@ -204,6 +204,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUserMetadata.cs" />
     <Compile Include="Models\Attendence.cs" />
+    <Compile Include="Models\AttendenceModelView.cs" />
     <Compile Include="Models\DateGreaterThanAttribute.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -418,6 +419,8 @@
     <Content Include="Views\Home\GetAllEmployees.cshtml" />
     <Content Include="Views\Home\Attendence.cshtml" />
     <Content Include="Views\Home\_Attendence.cshtml" />
+    <Content Include="Views\Home\MonthlyReportForOneEmp.cshtml" />
+    <Content Include="Views\Home\MonthlyReportForSpecifEmp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
