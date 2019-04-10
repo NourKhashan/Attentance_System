@@ -9,10 +9,44 @@
 
 <h2>Attendence</h2>
 
-@Html.ActionLink("Attednce", "Attendence",new { }, new { @class="btn btn-primary"})
+@Ajax.ActionLink("Attendence", "AssignAttendece", new { },new AjaxOptions() {
+    HttpMethod="Get",
+    InsertionMode=InsertionMode.Replace,
+    UpdateTargetId= "empAttendence",
+    OnSuccess= "showModal()"
 
+}, new { @class = "btn btn-info btn-lg", id = "btn" })
             
-@if (ViewBag.Assign== "true") {
-    <h2>Hi @User.Identity.GetUserName() , U Register At @ViewBag.time </h2>
 
-}
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <div id="empAttendence">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section scripts{
+    <script>
+
+        function showModal() {
+            
+            $('#myModal').modal();
+            $("btn").attr("disabled", false)
+        }
+</script>
+    }

@@ -54,20 +54,22 @@ namespace AttentanceManagementSystem.Controllers
 
         public ActionResult Attendence()
         {
-
+            return View();
+        }
+        public ActionResult AssignAttendece()
+        {
             var id = User.Identity.GetUserId();
-            db.Attendence.Add(new Attendence() { UserId=id});
+            db.Attendence.Add(new Attendence() { UserId = id });
             var time = DateTime.Now;
-            db.SaveChanges();
+            // db.SaveChanges();
             ViewBag.Assign = "true";
             dynamic min = time.Minute;
-            min =  (min <= 9)? "0" + min.ToString() : min.ToString();
+            min = (min <= 9) ? "0" + min.ToString() : min.ToString();
             dynamic hour = time.Hour;
             hour = (hour <= 9) ? "0" + hour.ToString() : hour.ToString();
 
             ViewBag.time = $"{hour} : {min}";
-
-            return View();
+            return PartialView("_Attendence");
         }
         public ActionResult Contact()
         {

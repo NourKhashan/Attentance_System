@@ -417,6 +417,7 @@
     <Content Include="Views\Home\_Confirm.cshtml" />
     <Content Include="Views\Home\GetAllEmployees.cshtml" />
     <Content Include="Views\Home\Attendence.cshtml" />
+    <Content Include="Views\Home\_Attendence.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
