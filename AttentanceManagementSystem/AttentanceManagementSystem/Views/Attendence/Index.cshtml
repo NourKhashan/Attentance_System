@@ -41,18 +41,27 @@
 </div>
 @section scripts{
     <script>
+        let flagRegister = false;
         $(function () {
 
-            let date = new Date(),
-                min = date.getMinutes(),
-                hour = date.getHours();
+            $.ajax({
+                url: "/Attendence/CheckAttendenceToday",
+                type: "Post",
+                success: function(data){
+                    console.log("Done");
+                    if (data != "NoData") {
+                        $('#myModal').modal();
+                        $("#empAttendence").text('U Register Attendence Befor -_-')
 
-            if (min > 30 && hour == 9 || min > 30 && hour > 9) {
-                console.log("Not i time");
-                $('#myModal').modal();
-                $("#empAttendence").text('U Register Attendence Befor -_-')
+                    }
+                },
+                error: () => {
+                    console.log("Error")
+                }
 
-            }
+            });//Ajax
+
+            
 
 
 
@@ -60,7 +69,8 @@
         function showModal() {
 
             $('#myModal').modal();
-            setTimeout(() => { $('#myModal') }, 1000);
+            flagRegister = true;
+           // setTimeout(() => { $('#myModal') }, 1000);
         }
 
         function redirectToHome() {

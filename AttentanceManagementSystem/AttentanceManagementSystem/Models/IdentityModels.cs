@@ -38,6 +38,7 @@ namespace AttentanceManagementSystem.Models
             return new ApplicationDbContext();
         }
         public DbSet<Attendence> Attendence { get; set; }
+        public DbSet<Leave> Leave { get; set; }
 
     }
 }

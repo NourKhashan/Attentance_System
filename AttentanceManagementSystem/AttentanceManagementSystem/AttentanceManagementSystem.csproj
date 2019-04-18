@@ -191,8 +191,11 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Common\Users.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AttendenceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LeaveController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -207,6 +210,7 @@
     <Compile Include="Models\AttendenceModelView.cs" />
     <Compile Include="Models\DateGreaterThanAttribute.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Leave.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -417,10 +421,15 @@
     <Content Include="Views\Home\GetNewEmployees.cshtml" />
     <Content Include="Views\Home\_Confirm.cshtml" />
     <Content Include="Views\Home\GetAllEmployees.cshtml" />
-    <Content Include="Views\Home\Attendence.cshtml" />
-    <Content Include="Views\Home\_Attendence.cshtml" />
-    <Content Include="Views\Home\MonthlyReportForOneEmp.cshtml" />
-    <Content Include="Views\Home\MonthlyReportForSpecifEmp.cshtml" />
+    <Content Include="Views\Report\MonthlyReportForOneEmp.cshtml" />
+    <Content Include="Views\Report\MonthlyReportForSpecifEmp.cshtml" />
+    <Content Include="Views\Attendence\Settings.cshtml" />
+    <Content Include="Views\Leave\Index.cshtml" />
+    <Content Include="Views\Leave\_Leave.cshtml" />
+    <Content Include="Views\Attendence\_Attendence.cshtml" />
+    <Content Include="Views\Attendence\Index.cshtml" />
+    <Content Include="Views\Report\_Employees.cshtml" />
+    <Content Include="Views\Attendence\AttedenceForAllEmp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

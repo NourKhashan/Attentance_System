@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "Leave";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@Ajax.ActionLink("Leave", "Leave", null,new AjaxOptions() {
+    HttpMethod="Post",
+    UpdateTargetId = "empLeave",
+    InsertionMode = InsertionMode.Replace
+
+}, new { id="btn", @class="btn btn-primary btn-lg"})
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <div id="empLeave">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-default" data-dismiss="modal" onclick="redirectToHome()">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+        $(function () {
+            $.ajax({
+                url: "/Leave/CheckLeave",
+                type: "Post",
+                success: (data) => {
+                    console.log(data);
+                    if (data != "NoData") {
+                        $("#myModal").modal();
+                        $("#empLeave").html("<p>U Assigned Leaving<p>")
+                    }
+
+                }
+            });
+
+        });
+
+
+        $("#btn").on("click", () => {
+            $("#myModal").modal();
+        });
+
+        function redirectToHome() {
+            window.location.href = '@Url.Content("~/Home/Index")';
+        }
+</script>
+}

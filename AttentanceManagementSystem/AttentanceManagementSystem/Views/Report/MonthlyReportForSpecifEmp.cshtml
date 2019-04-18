@@ -1,23 +1,41 @@
 ﻿@model IEnumerable<AttentanceManagementSystem.Models.AttendenceModelView>
+@using AttentanceManagementSystem.Models;
 @{
     ViewBag.Title = "MonthlyReportForSpecifEmp";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     string[] month = new string[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     SelectList monthsList = new SelectList(month, 12);
+
+
+
+    List<SelectListItem> empList = new List<SelectListItem>();
+
+    foreach (var item in Session["Emp"] as List<ApplicationUser>)
+    {
+        empList.Add(new SelectListItem() { Value = item.Id, Text = item.FirstName + " " + item.LastName });
+    }
 }
 
 <h2>Monthly Report For All Employees</h2>
 <div>
     @Html.Label("Months")
-    @Html.DropDownList("Months", monthsList, "Select Month", new { id = "ddlMonths" })
+    @Html.DropDownList("Months", monthsList, "Select Month" , new { id = "ddlMonths" })
+
+   
 </div>
+
+<div>
+    @Html.Label("Emp");
+    @Html.DropDownList("Employees", empList, "Select Employee", new { id = "ddlEmp" })
+</div>
+
 
 <div id="div">
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UserId)
+                @Html.DisplayName("Name")
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Attendence)
@@ -57,14 +75,57 @@
 
 @section scripts{
     <script>
+        let monthId = 0,
+            empId = 0;
+
+
+
+       //ddl For Months
         $("#ddlMonths").on("change", (value) => {
-            console.log(value.target.selectedIndex);
+            if (value.target.selectedIndex == 0) {
+                monthId = 0;
+            } else {
+                monthId = value.target.selectedIndex;
+
+            }
+            console.log("MonthId: ", monthId);
+
+            getReport();
+
+        });
+
+        //ddl For Emp
+        $("#ddlEmp").on("change", (value) => {
+            console.log(value.target.selectedIndex)
+            if (value.target.selectedIndex == 0) {
+                empId = 0;
+            } else {
+                empId = value.target.value;
+
+            }
+            console.log("EmpId: ", empId);
+
+            getReport();
+
+        });
+
+
+
+        function getReport() {
             $.ajax({
-                url: "/home/MonthlyReportForSpecifEmpByMonth/" + value.target.selectedIndex,
-                type: "Post",
+                //url: "/Report/MonthlyReportForSpecifEmpByMonth?monthId=" + monthId + "&empId=" + empId,
+                url: "/Report/MonthlyReportForSpecifEmpByMonth?monthId=" + monthId + "&empId=" + empId,
+
+                type: "Get",
                 success: function (data) {
                     console.log("done", data);
-                    var result = "<table  class='table'><th>UserId</th><th>Attendence</th><th>Absence</th><th>Late</th>";
+                    if (empId != 0 && monthId == 0) {
+                        var result = "<table  class='table'><th>Month</th><th>Attendence</th><th>Absence</th><th>Late</th>";
+
+                    } else {
+                        var result = "<table  class='table'><th>Name</th><th>Attendence</th><th>Absence</th><th>Late</th>";
+
+                    }
                     $.each(data, function (index, value) {
                         result += "<tr><td>" + value.UserId + "</td><td>" + value.Attendence
                             + "</td><td>" + value.Absence + "</td><td>" + value.Late;
@@ -76,8 +137,7 @@
                     $("#div").html(result);
                 }
             })// Ajax
-
-                });
+        }
     </script>
 
 }

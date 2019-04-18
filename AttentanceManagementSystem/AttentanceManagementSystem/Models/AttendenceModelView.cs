@@ -11,5 +11,7 @@ namespace AttentanceManagementSystem.Models
         public int Attendence { get; set; }
         public int Late { get; set; }
         public int Absence { get; set; }
+
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }

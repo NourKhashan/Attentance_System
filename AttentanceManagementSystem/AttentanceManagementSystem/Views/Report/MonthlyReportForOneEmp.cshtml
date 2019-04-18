@@ -12,11 +12,11 @@
     @Html.DropDownList("Months", monthsList, "Select Month", new { id="ddlMonths"})
 </div>
 <div id="divReports">
-    <ul>
+    @*<ul>
         <li>Attendence: @ViewBag.attendence</li>
         <li> Late: @ViewBag.late</li>
         <li>Absence: @ViewBag.absence</li>
-    </ul>
+    </ul>*@
     
 </div>
 
@@ -25,7 +25,7 @@
         $("#ddlMonths").on("change", (value) => {
             console.log(value.target.selectedIndex);
             $.ajax({
-                url: "/home/MonthlyReportForOneEmp/" + value.target.selectedIndex,
+                url: "/Report/MonthlyReportForOneEmp/" + value.target.selectedIndex,
                 type: "Post",
                 success: function (data) {
                     console.log("done", data);

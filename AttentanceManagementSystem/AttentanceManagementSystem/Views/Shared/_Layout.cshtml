@@ -25,14 +25,15 @@
                    
                     @if (User.IsInRole("Employee"))
                     {
-                       <li> @Html.ActionLink("Mothly Report", "MonthlyReportForOneEmp", "Home")</li>
-                       <li> @Html.ActionLink("Attendence", "Attendence", "Home")</li>
+                       <li> @Html.ActionLink("Mothly Report", "MonthlyReportForOneEmp", "Report")</li>
+                        <li> @Html.ActionLink("Attendence", "Index", "Attendence")</li>
+                       <li> @Html.ActionLink("Leave", "Index", "Leave")</li>
                     }
 
                     @if (User.IsInRole("Admin"))
                     {
                         <li>@Html.ActionLink("New Employees", "GetNewEmployees", "Home")</li>
-                        <li> @Html.ActionLink("Monthy For All Employees", "MonthlyReportForSpecifEmp", "Home")</li>
+                        <li> @Html.ActionLink("Monthy For All Employees", "MonthlyReportForSpecifEmp", "Report")</li>
                     }
 
                 </ul>

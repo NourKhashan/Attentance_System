@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Settings";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    String[] allDays = new String[] { "Saturday", "Sunday", "Monday", "Thruthday", "Wendensday", "Tuesday", "Friday" };
+
+}
+
+<h2>Settings</h2>
+<h2>Choose Formal Holdayes</h2>
+@foreach (var item in allDays)
+{
+    
+    @Html.CheckBox(item) @item <br />
+}
+
+
+
+
